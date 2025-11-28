@@ -3,7 +3,11 @@
 --!divine-intellect
 -- https://discord.gg/wx4ThpAsmw
 
-local konstantdecompiler = loadstring(game:HttpGet('https://raw.githubusercontent.com/verysigmapro/UniversalSynSaveInstance-With-Save-Terrain/refs/heads/main/konstantdecompiler.lua'))()
+local konstantdecompiler
+pcall(function()
+	konstantdecompiler = loadstring(game:HttpGet('https://raw.githubusercontent.com/verysigmapro/UniversalSynSaveInstance-With-Save-Terrain/refs/heads/main/konstantdecompiler.lua', true))()
+end)
+
 
 -- ⭐⭐⭐ PROGRESS MONITORING SYSTEM ⭐⭐⭐
 local ProgressMonitor = {
