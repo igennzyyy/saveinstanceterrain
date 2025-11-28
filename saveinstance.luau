@@ -3297,8 +3297,10 @@ local function save_game()
     
     table.clear(SharedStrings)
     
-    -- ⭐ PROGRESS COMPLETE - Dipanggil di akhir fungsi save_game ⭐
-    ProgressMonitor:Log("Proses penyimpanan selesai!", "SUCCESS")
+    -- ⭐ Progress Complete Handler ⭐
+    pcall(function()
+        ProgressMonitor:Log("Proses penyimpanan selesai!", "SUCCESS")
+    end)
 end
 
 local Connections
@@ -3483,11 +3485,15 @@ do
         return debug.traceback(err)
     end)
 
-    -- ⭐ TAMBAHAN: Progress Complete Handler ⭐
+    -- ⭐ Progress Complete Handler ⭐
     if ok then
-        ProgressMonitor:Complete() -- ✅ Panggil Complete jika berhasil
+        pcall(function()
+            ProgressMonitor:Complete()
+        end)
     else
-        ProgressMonitor:Log("GAGAL! Error: " .. tostring(err), "ERROR")
+        pcall(function()
+            ProgressMonitor:Log("GAGAL! Error: " .. tostring(err), "ERROR")
+        end)
     end
 
     if SafeMode then
@@ -3515,6 +3521,10 @@ do
             local Log10 = math.log10(elapse_t)
             local ExtraTime = 10
             if ok then
+           -- ⭐ Tambahkan ini ⭐
+                pcall(function()
+                    ProgressMonitor:Complete()
+
                 StatusText.Text = string.format("Saved! Time %.3f seconds; Size %s", elapse_t, get_size_format())
                 StatusText.TextColor3 = Color3.new(0, 1, 0)
                 task.wait(Log10 * 2 + ExtraTime)
